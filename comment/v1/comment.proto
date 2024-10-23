@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package comment.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "comment/api/comment/v1;v1";
+option java_multiple_files = true;
+option java_package = "dev.kratos.api.comment.v1";
+option java_outer_classname = "commentProtoV1";
+import "google/protobuf/empty.proto";
+
+
+service CommentService {
+  rpc CreateComment (CreateCommentReq) returns (CreateCommentRsp) {
+    option (google.api.http) = {
+      post: "/comment/comment",
+      body: "*",
+    };
+  }
+  rpc GetComment (GetCommentReq) returns (GetCommentRsp) {
+    option (google.api.http) = {
+       get: "/comment/comment/{id}",
+    };
+  }
+}
+
+message Comment {
+  string id = 1;
+  string content = 2;
+  string author = 3;
+  string createdAt = 4;
+  string updatedAt = 5;
+}
+
+enum CommentSubjectType {
+  VIDEO = 0;
+  ARTICLE = 1;
+  MUSIC = 2;
+  BOOK = 3;
+  OFFERING = 4;
+}
+
+message CreateCommentReq {
+  string user_id = 1;  // 评论用户ID
+  string reply_user_id = 2; // 回复用户ID
+  string subject_id = 3; // 评论对象ID
+  CommentSubjectType subject_type = 4;  // 评论类型  
+  string root_id = 5; // 顶级评论ID
+  string parent_id = 6;  // 评论父对象ID
+  string Content   = 7; // 内容
+}
+
+message CreateCommentRsp {
+  string comment_id = 1;
+}
+
+message GetCommentReq {
+  string id = 1;
+}
+
+message GetCommentRsp {
+  Comment comment = 1;
+}
+
