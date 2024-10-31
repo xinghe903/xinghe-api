@@ -30,6 +30,76 @@ service AuthService {
       body: "*",
     };
   }
+  // 鉴权
+  rpc Auth (AuthReq) returns (AuthRsp) {
+    option (google.api.http) = {
+      get: "/auth/auth"
+    };
+  }
+  // 创建角色
+  rpc CreateRole (CreateRoleReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/auth/role",
+      body: "*",
+    };
+  };
+  // 修改角色
+  rpc UpdateRole (UpdateRoleReq) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      put: "/auth/role/{id}",
+      body: "*",
+    };
+  };
+  // 删除角色
+  rpc DeleteRole (DeleteRoleReq) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      delete: "/auth/role/{id}",
+    };
+  };
+  // 查询角色详情
+  rpc GetRole (GetRoleReq) returns (GetRoleRsp) {
+    option (google.api.http) = {
+      get: "/auth/role/{id}",
+    };
+  };
+  // 查询角色列表
+  rpc ListRole (ListRoleReq) returns (ListRoleRsp) {
+    option (google.api.http) = {
+      get: "/auth/role",
+    };
+  };
+  // 创建权限
+  rpc CreatePermission (CreatePermissionReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/auth/permission",
+      body: "*",
+    };
+  };
+  // 修改权限
+  rpc UpdatePermission (UpdatePermissionReq) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      put: "/auth/permission/{id}",
+      body: "*",
+    };
+  };
+  // 删除权限
+  rpc DeletePermission (DeletePermissionReq) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      delete: "/auth/permission/{id}",
+    };
+  };
+  // 查询权限详情
+  rpc GetPermission (GetPermissionReq) returns (GetPermissionRsp) {
+    option (google.api.http) = {
+      get: "/auth/permission/{id}",
+    };
+  };
+  // 查询权限列表
+  rpc ListPermission (ListPermissionReq) returns (ListPermissionRsp) {
+    option (google.api.http) = {
+      get: "/auth/permission",
+    };
+  };
 }
 
 message RegisterReq {
@@ -48,5 +118,90 @@ message LoginRsp {
 
 message LogoutReq {
   string token = 1;
+}
+
+message AuthReq {
+  string token = 1;
+}
+
+message AuthRsp {
+  string username = 1;
+}
+
+message CreateRoleReq {
+  string name = 1;  // 角色名称
+}
+
+message UpdateRoleReq {
+  string id = 1;  // 角色ID
+  string name = 2;  // 角色名称
+}
+
+message DeleteRoleReq {
+  string id = 1;  // 角色ID
+}
+
+message GetRoleReq {
+  string id = 1;  // 角色ID
+}
+
+message GetRoleRsp {
+  string id = 1;  // 角色ID
+  string name = 2;  // 角色名称
+}
+
+message ListRoleReq {
+  int32 page_number = 1;  // 页码
+  int32 page_size = 2;  // 页大小
+}
+
+message ListRoleRsp {
+  repeated Role roles = 1;
+  int32 total = 2;  // 总数
+}
+
+message Role {
+  string id = 1;  // 角色ID
+  string name = 2;  // 角色名称
+}
+
+message CreatePermissionReq {
+  string name = 1;  // 权限名称
+}
+
+message UpdatePermissionReq {
+  string id = 1;  // 权限ID
+  string name = 2;  // 权限名称
+}
+
+message DeletePermissionReq {
+  string id = 1;  // 权限ID
+}
+
+message GetPermissionReq {
+  string id = 1;  // 权限ID
+}
+
+message GetPermissionRsp {
+  string id = 1;  // 权限ID
+  string name = 2;  // 权限名称
+}
+
+message ListPermissionReq {
+  int32 page_number = 1;  // 页码
+  int32 page_size = 2;  // 页大小
+}
+
+message ListPermissionRsp {
+  repeated Permission permissions = 1;
+  int32 total = 2;  // 总数
+}
+
+message Permission {
+  string id = 1;  // 权限ID
+  string name = 2;  // 权限名称
+  string subject_type = 3; // 类型
+  string subject_id = 4; // 主体ID
+  string permission = 5; // 权限路径
 }
 
