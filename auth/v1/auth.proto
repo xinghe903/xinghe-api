@@ -36,6 +36,12 @@ service AuthService {
       get: "/auth/auth"
     };
   }
+  // 查询用户详情
+  rpc GetUser (GetUserReq) returns (GetUserRsp) {
+    option (google.api.http) = {
+      get: "/auth/user/{id}",
+    };
+  };
   // 创建角色
   rpc CreateRole (CreateRoleReq) returns (google.protobuf.Empty) {
     option (google.api.http) = {
@@ -121,11 +127,28 @@ message LogoutReq {
 }
 
 message AuthReq {
-  string token = 1;
+  string token = 1;    // 不进行参数获取  token通过 header传递 key: access_token
 }
 
 message AuthRsp {
   string username = 1;
+  string nickname = 2;
+  string user_id = 3;
+}
+
+message GetUserReq {
+  string id = 1;  // 用户ID
+}
+
+message GetUserRsp {
+  string id = 1;  // 用户ID
+  string username = 2;  // 用户名
+  string email = 3;  // 邮箱
+  string phone = 4;  // 电话
+  string avatar = 5;  // 头像
+  string created_at = 6;  // 创建时间
+  string updated_at = 7;  // 更新时间
+  string nickname = 8;  // 昵称
 }
 
 message CreateRoleReq {
