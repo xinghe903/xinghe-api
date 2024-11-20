@@ -14,96 +14,102 @@ import "google/protobuf/empty.proto";
 service AuthService {
   rpc Register (RegisterReq) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      post: "/auth/register",
+      post: "/v1/auth/register",
       body: "*",
     };
   }
   rpc Login (LoginReq) returns (LoginRsp) {
     option (google.api.http) = {
-      post: "/auth/login",
+      post: "/v1/auth/login",
       body: "*",
     };
   }
   rpc Logout (LogoutReq) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      post: "/auth/logout",
+      post: "/v1/auth/logout",
       body: "*",
     };
   }
   // 鉴权
   rpc Auth (AuthReq) returns (AuthRsp) {
     option (google.api.http) = {
-      get: "/auth/auth"
+      get: "/v1/auth/auth"
     };
   }
   // 查询用户详情
   rpc GetUser (GetUserReq) returns (GetUserRsp) {
     option (google.api.http) = {
-      get: "/auth/user/{id}",
+      get: "/v1/auth/user/{id}",
+    };
+  };
+  // 查询用户列表
+  rpc ListUser (ListUserReq) returns (ListUserRsp) {
+    option (google.api.http) = {
+      get: "/v1/auth/user",
     };
   };
   // 创建角色
   rpc CreateRole (CreateRoleReq) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      post: "/auth/role",
+      post: "/v1/auth/role",
       body: "*",
     };
   };
   // 修改角色
   rpc UpdateRole (UpdateRoleReq) returns (google.protobuf.Empty){
     option (google.api.http) = {
-      put: "/auth/role/{id}",
+      put: "/v1/auth/role/{id}",
       body: "*",
     };
   };
   // 删除角色
   rpc DeleteRole (DeleteRoleReq) returns (google.protobuf.Empty){
     option (google.api.http) = {
-      delete: "/auth/role/{id}",
+      delete: "/v1/auth/role/{id}",
     };
   };
   // 查询角色详情
   rpc GetRole (GetRoleReq) returns (GetRoleRsp) {
     option (google.api.http) = {
-      get: "/auth/role/{id}",
+      get: "/v1/auth/role/{id}",
     };
   };
   // 查询角色列表
   rpc ListRole (ListRoleReq) returns (ListRoleRsp) {
     option (google.api.http) = {
-      get: "/auth/role",
+      get: "/v1/auth/role",
     };
   };
   // 创建权限
   rpc CreatePermission (CreatePermissionReq) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      post: "/auth/permission",
+      post: "/v1/auth/permission",
       body: "*",
     };
   };
   // 修改权限
   rpc UpdatePermission (UpdatePermissionReq) returns (google.protobuf.Empty){
     option (google.api.http) = {
-      put: "/auth/permission/{id}",
+      put: "/v1/auth/permission/{id}",
       body: "*",
     };
   };
   // 删除权限
   rpc DeletePermission (DeletePermissionReq) returns (google.protobuf.Empty){
     option (google.api.http) = {
-      delete: "/auth/permission/{id}",
+      delete: "/v1/auth/permission/{id}",
     };
   };
   // 查询权限详情
   rpc GetPermission (GetPermissionReq) returns (GetPermissionRsp) {
     option (google.api.http) = {
-      get: "/auth/permission/{id}",
+      get: "/v1/auth/permission/{id}",
     };
   };
   // 查询权限列表
   rpc ListPermission (ListPermissionReq) returns (ListPermissionRsp) {
     option (google.api.http) = {
-      get: "/auth/permission",
+      get: "/v1/auth/permission",
     };
   };
 }
@@ -141,6 +147,29 @@ message GetUserReq {
 }
 
 message GetUserRsp {
+  string id = 1;  // 用户ID
+  string username = 2;  // 用户名
+  string email = 3;  // 邮箱
+  string phone = 4;  // 电话
+  string avatar = 5;  // 头像
+  string created_at = 6;  // 创建时间
+  string updated_at = 7;  // 更新时间
+  string nickname = 8;  // 昵称
+}
+
+message ListUserReq {
+  int32 page_number = 1;  // 页码
+  int32 page_size = 2;  // 页大小
+  string username = 3;  // 用户名 模糊查询
+
+}
+
+message ListUserRsp {
+  repeated User users = 1;
+  int32 total = 2;  // 总数
+}
+
+message User {
   string id = 1;  // 用户ID
   string username = 2;  // 用户名
   string email = 3;  // 邮箱
