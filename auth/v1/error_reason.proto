@@ -23,5 +23,15 @@ enum ErrorReason {
   TOKEN_EXPIRED = 1007 [(errors.code) = 600]; // token过期
   ILLEGAL_TOKEN = 1008 [(errors.code) = 600]; // 非法token
   USER_INFO = 1009 [(errors.code) = 600]; // 获取用户信息失败
+  UPDATE_USER = 1010 [(errors.code) = 600]; // 更新用户信息失败
+  DELETE_USER = 1011 [(errors.code) = 600]; // 删除用户失败
+  CREATE_ROLE = 1012 [(errors.code) = 600]; // 创建角色失败
+  UPDATE_ROLE = 1013 [(errors.code) = 600]; // 更新角色信息失败
+  DELETE_ROLE = 1014 [(errors.code) = 600]; // 删除角色失败
+  GET_ROLE = 1015 [(errors.code) = 600]; // 查询角色信息失败
+  CREATE_PERMISSION = 1016 [(errors.code) = 600]; // 创建权限失败
+  UPDATE_PERMISSION = 1017 [(errors.code) = 600]; // 更新权限信息失败
+  DELETE_PERMISSION = 1018 [(errors.code) = 600]; // 删除权限失败
+  GET_PERMISSION = 1019 [(errors.code) = 600]; // 查询权限信息失败
   
 }
