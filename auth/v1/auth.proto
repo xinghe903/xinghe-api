@@ -63,7 +63,7 @@ service AuthService {
     };
   };
   // 创建角色
-  rpc CreateRole (CreateRoleReq) returns (google.protobuf.Empty) {
+  rpc CreateRole (CreateRoleReq) returns (CreateRoleRsp) {
     option (google.api.http) = {
       post: "/v1/auth/role",
       body: "*",
@@ -229,6 +229,11 @@ message CreateRoleReq {
   string name = 1;  // 角色名称
 }
 
+message CreateRoleRsp {
+  string name = 1;  // 角色名称
+  string id = 2;  // 角色ID
+}
+
 message UpdateRoleReq {
   string id = 1;  // 角色ID
   string name = 2;  // 角色名称
@@ -245,6 +250,8 @@ message GetRoleReq {
 message GetRoleRsp {
   string id = 1;  // 角色ID
   string name = 2;  // 角色名称
+  string created_at = 3; // 创建时间
+  string updated_at = 4; // 更新时间
 }
 
 message ListRoleReq {
@@ -260,15 +267,29 @@ message ListRoleRsp {
 message Role {
   string id = 1;  // 角色ID
   string name = 2;  // 角色名称
+  string created_at = 3; // 创建时间
+  string updated_at = 4; // 更新时间
 }
 
 message CreatePermissionReq {
   string name = 1;  // 权限名称
+  string permission = 2; // 权限路径
+  string subject_type = 3; // 类型 api menu operation
+  string subject_id = 4; // 主体ID
+  string root_id = 5; 
+  string parent_id = 6;
+  int32 sort = 7; // 小到大排序
 }
 
 message UpdatePermissionReq {
-  string id = 1;  // 权限ID
-  string name = 2;  // 权限名称
+  string name = 1;  // 权限名称
+  string permission = 2; // 权限路径
+  string subject_type = 3; // 类型 api menu operation
+  string subject_id = 4; // 主体ID
+  string root_id = 5; 
+  string parent_id = 6;
+  int32 sort = 7; // 小到大排序
+  string id = 8;
 }
 
 message DeletePermissionReq {
@@ -276,12 +297,20 @@ message DeletePermissionReq {
 }
 
 message GetPermissionReq {
-  string id = 1;  // 权限ID
+  string id = 1;
 }
 
 message GetPermissionRsp {
-  string id = 1;  // 权限ID
-  string name = 2;  // 权限名称
+  string name = 1;  // 权限名称
+  string permission = 2; // 权限路径
+  string subject_type = 3; // 类型 api menu operation
+  string subject_id = 4; // 主体ID
+  string root_id = 5; 
+  string parent_id = 6;
+  int32 sort = 7; // 小到大排序
+  string id = 8;
+  string created_at = 9;  // 创建时间
+  string updated_at = 10; // 更新时间
 }
 
 message ListPermissionReq {
@@ -295,10 +324,16 @@ message ListPermissionRsp {
 }
 
 message Permission {
-  string id = 1;  // 权限ID
-  string name = 2;  // 权限名称
-  string subject_type = 3; // 类型
+  string name = 1;  // 权限名称
+  string permission = 2; // 权限路径
+  string subject_type = 3; // 类型 api menu operation
   string subject_id = 4; // 主体ID
-  string permission = 5; // 权限路径
+  string root_id = 5; 
+  string parent_id = 6;
+  int32 sort = 7; // 小到大排序
+  string id = 8;
+  string created_at = 9;  // 创建时间
+  string updated_at = 10; // 更新时间
+  int32  children = 11; // 是否有子节点 0: 没有子节点 1: 存在子节点
 }
 
