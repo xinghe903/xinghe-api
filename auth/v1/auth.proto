@@ -126,6 +126,19 @@ service AuthService {
       get: "/v1/auth/permission",
     };
   };
+  // 查询角色权限关联关系
+  rpc ListRolePermission (ListRolePermissionReq) returns (ListRolePermissionRsp) {
+    option (google.api.http) = {
+      get: "/v1/auth/rolePermission/{role_id}",
+    };
+  };
+  // 更新角色权限关联关系
+  rpc UpdateRolePermission (UpdateRolePermissionReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/auth/rolePermission",
+      body: "*",
+    };
+  };
 }
 
 message RegisterReq {
@@ -316,6 +329,7 @@ message GetPermissionRsp {
 message ListPermissionReq {
   int32 page_number = 1;  // 页码
   int32 page_size = 2;  // 页大小
+  string parent_id = 3;  // 父节点ID
 }
 
 message ListPermissionRsp {
@@ -336,4 +350,20 @@ message Permission {
   string updated_at = 10; // 更新时间
   int32  children = 11; // 是否有子节点 0: 没有子节点 1: 存在子节点
 }
+
+message ListRolePermissionReq {
+  string role_id = 1;  // 角色ID
+}
+
+message ListRolePermissionRsp {
+  repeated string permission_ids = 1;  // 权限ID列表
+  string role_id = 2;  // 角色ID
+}
+
+message UpdateRolePermissionReq {
+  repeated string permission_ids = 1;  // 权限ID列表
+  string role_id = 2;  // 角色ID
+}
+
+
 

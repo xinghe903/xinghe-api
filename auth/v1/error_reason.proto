@@ -33,5 +33,7 @@ enum ErrorReason {
   UPDATE_PERMISSION = 1017 [(errors.code) = 600]; // 更新权限信息失败
   DELETE_PERMISSION = 1018 [(errors.code) = 600]; // 删除权限失败
   GET_PERMISSION = 1019 [(errors.code) = 600]; // 查询权限信息失败
-  
+  LIST_ROLEPERMISSIONS = 1020 [(errors.code) = 600]; // 查询角色权限列表数据
+  UPDATE_ROLEPERMISSION = 1021 [(errors.code) = 600]; // 更新角色权限列表数据
+  PARAMETER = 1022 [(errors.code) = 600]; // 参数校验错误
 }
