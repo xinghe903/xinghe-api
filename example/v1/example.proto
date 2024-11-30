@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package example.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "example/api/example/v1;v1";
+option java_multiple_files = true;
+option java_package = "dev.kratos.api.example.v1";
+option java_outer_classname = "exampleProtoV1";
+import "google/protobuf/empty.proto";
+
+
+service exampleService {
+  rpc GetExample (GetExampleReq) returns (GetExampleRsp) {
+    option (google.api.http) = {
+       get: "/v1/example/example/{id}",
+    };
+  }
+}
+
+message GetExampleReq {
+  string id = 1;
+}
+
+message GetExampleRsp {
+  string id = 1;
+  string content = 2;
+  string author = 3;
+  string createdAt = 4;
+  string updatedAt = 5;
+}

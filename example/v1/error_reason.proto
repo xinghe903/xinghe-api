@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package example.v1;
+
+import "errors/errors.proto";
+
+option go_package = "example/api/example/v1;v1";
+option java_multiple_files = true;
+option java_package = "example.v1";
+option objc_class_prefix = "APIexampleV1";
+
+
+enum ErrorReason {
+  option (errors.default_code) = 600;
+
+  OK = 0 [(errors.code) = 200];
+  PARAMETER = 1022 [(errors.code) = 600]; // 参数校验错误
+}

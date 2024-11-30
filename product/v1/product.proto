@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package product.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "product/api/product/v1;v1";
+option java_multiple_files = true;
+option java_package = "dev.kratos.api.product.v1";
+option java_outer_classname = "productProtoV1";
+import "google/protobuf/empty.proto";
+
+
+service ProductService {
+  rpc GetProduct (GetProductReq) returns (GetProductRsp) {
+    option (google.api.http) = {
+       get: "/v1/product/{id}",
+    };
+  }
+  rpc CreateProduct (CreateProductReq) returns (CreateProductRsp) {
+    option (google.api.http) = {
+      post: "/v1/product",
+      body: "*",
+    };
+  }
+}
+
+message GetProductReq {
+  string id = 1;
+}
+
+message GetProductRsp {
+  string id = 1;
+  int32 stock = 2;
+  string name = 3;
+  string description = 4;
+  double price = 5;
+}
+
+message CreateProductReq {
+  int32 stock = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+}
+
+message CreateProductRsp {
+  string id = 1;
+  int32 stock = 2;
+  string name = 3;
+  string description = 4;
+  double price = 5;
+}
