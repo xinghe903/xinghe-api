@@ -36,4 +36,6 @@ enum ErrorReason {
   LIST_ROLEPERMISSIONS = 1020 [(errors.code) = 600]; // 查询角色权限列表数据
   UPDATE_ROLEPERMISSION = 1021 [(errors.code) = 600]; // 更新角色权限列表数据
   PARAMETER = 1022 [(errors.code) = 600]; // 参数校验错误
+  LIST_USERROLE = 1023 [(errors.code) = 600]; // 查询用户角色列表数据
+  UPDATE_USERROLE = 1024 [(errors.code) = 600]; // 更新用户角色列表数据
 }

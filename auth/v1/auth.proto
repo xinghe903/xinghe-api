@@ -139,6 +139,19 @@ service AuthService {
       body: "*",
     };
   };
+  // 查询用户角色关联关系
+  rpc ListUserRole (ListUserRoleReq) returns (ListUserRoleRsp) {
+    option (google.api.http) = {
+      get: "/v1/auth/userRole/{user_id}",
+    };
+  };
+  // 更新用户角色关联关系
+  rpc UpdateUserRole (UpdateUserRoleReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/auth/userRole",
+      body: "*",
+    };
+  };
 }
 
 message RegisterReq {
@@ -330,6 +343,7 @@ message ListPermissionReq {
   int32 page_number = 1;  // 页码
   int32 page_size = 2;  // 页大小
   string parent_id = 3;  // 父节点ID
+  string subject_type = 4; // 类型 api menu operation
 }
 
 message ListPermissionRsp {
@@ -365,5 +379,18 @@ message UpdateRolePermissionReq {
   string role_id = 2;  // 角色ID
 }
 
+message ListUserRoleReq {
+  string user_id = 1;  // 用户ID
+}
+
+message ListUserRoleRsp {
+  repeated string role_ids = 1;  // 角色ID列表
+  string user_id = 2;  // 用户ID
+}
+
+message UpdateUserRoleReq {
+  repeated string role_ids = 1;  // 角色ID列表
+  string user_id = 2;  // 用户ID
+}
 
 
